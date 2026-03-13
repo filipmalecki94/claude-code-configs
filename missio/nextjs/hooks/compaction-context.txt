@@ -1,0 +1,10 @@
+CRITICAL PROJECT CONTEXT (re-injected after compaction):
+- Next.js 15 App Router (NOT Pages Router), React 19, TypeScript
+- WPGraphQL + graphql-request for product/article data with ISR
+- WooCommerce Store API v3 for cart/checkout (NOT legacy endpoints)
+- STRIPE_SECRET_KEY, JWT_AUTH_SECRET_KEY — server-side only (Route Handlers, Server Actions)
+- STRIPE_PUBLIC_KEY — ok for client-side Stripe Elements
+- Cart session managed by WooCommerce (Redis on WP side), not duplicated in Next.js
+- Path alias: @/* → ./src/*
+- Docker: only nginx exposes ports, internal services use service names as hostnames
+- Check .claude/settings.json for allowed/denied commands and hooks
