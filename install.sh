@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Usage: ./install.sh [PATH_TO_MISSIO_DOCKER]
+# Usage: ./install.sh [TARGET_DIR]
 # Default: current directory
 
 set -euo pipefail
@@ -20,15 +20,15 @@ copy_configs() {
   find "$dst" -name '.mcp.json.example' -delete
 }
 
-copy_configs "$SCRIPT_DIR/missio/docker"    "$TARGET/.claude"             "docker (root)"
-copy_configs "$SCRIPT_DIR/missio/nextjs"    "$TARGET/nextjs/.claude"      "nextjs"
-copy_configs "$SCRIPT_DIR/missio/wordpress" "$TARGET/wordpress/.claude"   "wordpress"
+copy_configs "$SCRIPT_DIR/docker"    "$TARGET/.claude"             "docker (root)"
+copy_configs "$SCRIPT_DIR/nextjs"    "$TARGET/nextjs/.claude"      "nextjs"
+copy_configs "$SCRIPT_DIR/wordpress" "$TARGET/wordpress/.claude"   "wordpress"
 
 echo ""
 echo "✓ Configs installed."
 echo "  Create .mcp.json in each location from the .mcp.json.example template:"
-echo "    cp $(basename $SCRIPT_DIR)/missio/docker/.mcp.json.example $TARGET/.mcp.json"
-echo "    cp $(basename $SCRIPT_DIR)/missio/nextjs/.mcp.json.example $TARGET/nextjs/.mcp.json"
-echo "    cp $(basename $SCRIPT_DIR)/missio/wordpress/.mcp.json.example $TARGET/wordpress/.mcp.json"
+echo "    cp $SCRIPT_DIR/docker/.mcp.json.example $TARGET/.mcp.json"
+echo "    cp $SCRIPT_DIR/nextjs/.mcp.json.example $TARGET/nextjs/.mcp.json"
+echo "    cp $SCRIPT_DIR/wordpress/.mcp.json.example $TARGET/wordpress/.mcp.json"
 echo "  Then fill in your tokens."
 echo "  (settings.local.json and .mcp.json are gitignored — never commit them)"
