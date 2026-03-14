@@ -13,15 +13,15 @@ Follow this order for every function that handles user input or modifies data:
 ## mu-plugin Conventions
 
 ### File naming
-- Kebab-case: `missio-graphql-extensions.php`, `missio-wc-store-api-filters.php`
-- Prefix with `missio-` for project-specific mu-plugins
+- Kebab-case: `{prefix}-graphql-extensions.php`, `{prefix}-wc-store-api-filters.php`
+- Prefix with `{prefix}-` for project-specific mu-plugins
 
 ### Structure template
 ```php
 <?php
 /**
- * Plugin Name: Missio GraphQL Extensions
- * Description: Custom GraphQL fields and types for the missio storefront
+ * Plugin Name: App GraphQL Extensions
+ * Description: Custom GraphQL fields and types for the storefront
  */
 
 defined('ABSPATH') || exit;
@@ -29,7 +29,7 @@ defined('ABSPATH') || exit;
 /**
  * Register custom GraphQL fields.
  */
-function missio_register_graphql_fields(): void
+function app_register_graphql_fields(): void
 {
     register_graphql_field('Product', 'customField', [
         'type' => 'String',
@@ -39,7 +39,7 @@ function missio_register_graphql_fields(): void
         },
     ]);
 }
-add_action('graphql_register_types', 'missio_register_graphql_fields');
+add_action('graphql_register_types', 'app_register_graphql_fields');
 ```
 
 ### Rules
@@ -47,7 +47,7 @@ add_action('graphql_register_types', 'missio_register_graphql_fields');
 - No side effects at include time — all logic inside functions, registered via hooks
 - Use PHP 8.4 features: typed properties, union types, named arguments, match expressions
 - PSR-12 coding standard (braces on same line for control structures, next line for classes/methods)
-- Prefix all function names with `missio_` to avoid conflicts
+- Prefix all function names with `app_` to avoid conflicts
 
 ## GraphQL Extension Patterns
 
@@ -107,7 +107,7 @@ add_action('woocommerce_blocks_loaded', function (): void {
     $extend = StoreApi::container()->get(ExtendSchema::class);
     $extend->register_endpoint_data([
         'endpoint' => 'cart/items',
-        'namespace' => 'missio',
+        'namespace' => 'app',
         'data_callback' => fn() => ['custom' => 'value'],
         'schema_callback' => fn() => ['custom' => ['type' => 'string']],
     ]);
@@ -149,8 +149,8 @@ add_filter('woocommerce_rest_prepare_product_object', function ($response, $prod
 
 ### Rules
 
-- **Namespace**: `Missio\Domain\{BoundedContext}` (e.g., `Missio\Domain\Catalog`)
-- **Location**: `web/app/mu-plugins/missio-domain/src/{BoundedContext}/`
+- **Namespace**: `App\Domain\{BoundedContext}` (e.g., `App\Domain\Catalog`)
+- **Location**: `web/app/mu-plugins/{project}-domain/src/{BoundedContext}/`
 - **No WP/WC imports**: domain classes must NOT use `get_post_meta()`, `WC_Product`, `add_action()`, etc.
 - **Self-validating VOs**: constructors throw `\InvalidArgumentException` on invalid data
 - **Immutable VOs**: always `final readonly class`, compared with `equals()` method
@@ -159,8 +159,8 @@ add_filter('woocommerce_rest_prepare_product_object', function ($response, $prod
 
 ### Autoloading
 
-The `missio-domain.php` mu-plugin loader registers a PSR-4 autoloader:
-- Namespace prefix: `Missio\Domain\`
+The `{project}-domain.php` mu-plugin loader registers a PSR-4 autoloader:
+- Namespace prefix: `App\Domain\`
 - Base directory: `__DIR__ . '/src/'`
 
 ### Testing

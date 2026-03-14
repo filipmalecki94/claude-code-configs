@@ -1,6 +1,6 @@
 # AGENT-PROMPTS.md
 
-Instrukcje do tworzenia i modyfikowania agentów Claude Code w projekcie missio.
+Instrukcje do tworzenia i modyfikowania agentów Claude Code.
 
 ---
 
@@ -8,7 +8,7 @@ Instrukcje do tworzenia i modyfikowania agentów Claude Code w projekcie missio.
 
 ### Opis
 
-Agent `ddd-modeler` odpowiada za Domain-Driven Design w projekcie missio. Działa w trybie hybrydowym:
+Agent `ddd-modeler` odpowiada za Domain-Driven Design w tym projekcie. Działa w trybie hybrydowym:
 - **Strategic DDD** — Bounded Contexts, Context Maps, Ubiquitous Language
 - **Tactical DDD** — szkielety klas PHP 8.4 (Value Objects, Entities, Aggregates, Repositories, Domain Services, Domain Events)
 - **NIE implementuje** pełnej logiki biznesowej — deleguje do `wp-api-developer`
@@ -30,8 +30,8 @@ Agent `ddd-modeler` odpowiada za Domain-Driven Design w projekcie missio. Dział
 
 ### Kluczowe zasady prompta
 
-1. **Namespace**: `Missio\Domain\{Context}` (np. `Missio\Domain\Catalog`)
-2. **Katalog**: `web/app/mu-plugins/missio-domain/{Context}/`
+1. **Namespace**: `App\Domain\{Context}` (np. `App\Domain\Catalog`)
+2. **Katalog**: `web/app/mu-plugins/{project}-domain/{Context}/`
 3. **PHP 8.4**: readonly classes, enums, typed properties, constructor promotion
 4. **PSR-12**: strict types, final readonly VOs, interfejsy repozytoriów
 5. **Framework-agnostic domain**: brak importów WooCommerce w klasach domenowych

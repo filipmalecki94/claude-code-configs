@@ -9,7 +9,7 @@ This is a **headless WordPress backend** — it serves no HTML to end users. All
 
 ## What's in Git vs What Docker/Composer Provides
 
-**In git**: `composer.json`, `config/`, `web/app/mu-plugins/`, `web/app/themes/missio-headless/`, Dockerfile
+**In git**: `composer.json`, `config/`, `web/app/mu-plugins/`, `web/app/themes/{project}-headless/`, Dockerfile
 **NOT in git** (generated): `vendor/`, `web/wp/`, `web/app/plugins/` (Composer-installed), `web/app/uploads/`
 
 Never edit files in `vendor/`, `web/wp/`, or `web/app/plugins/` — they are Composer-managed.
@@ -30,7 +30,7 @@ wordpress/
         ├── mu-plugins/        # Must-use plugins (auto-loaded, our code)
         ├── plugins/           # Composer-managed plugins (never edit)
         ├── themes/
-        │   └── missio-headless/  # Minimal headless theme
+        │   └── {project}-headless/  # Minimal headless theme
         └── uploads/           # Media (Docker named volume)
 ```
 
@@ -47,17 +47,17 @@ wordpress/
 
 All custom PHP code lives in `web/app/mu-plugins/`. Each mu-plugin:
 1. Starts with `<?php` and ABSPATH guard: `defined('ABSPATH') || exit;`
-2. Uses kebab-case filename: `missio-graphql-extensions.php`
+2. Uses kebab-case filename: `{prefix}-graphql-extensions.php`
 3. Wraps logic in functions, registers via hooks — no side effects at include time
 4. Follows PSR-12 coding standard (not WordPress coding standard)
 
 ## Docker Execution Context
 
-The `docker-compose.yml` lives in the **parent directory** (`missio-docker/`), not in `wordpress/`. All Docker commands must be run from there:
+The `docker-compose.yml` lives in the **parent directory** (`{DOCKER_DIR}/`), not in `wordpress/`. All Docker commands must be run from there:
 
 ```bash
-cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wpcli wp ...
-cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wordpress composer ...
+cd {DOCKER_DIR} && docker compose run --rm wpcli wp ...
+cd {DOCKER_DIR} && docker compose run --rm wordpress composer ...
 ```
 
 The `wordpress/` directory is bind-mounted into the container at `/var/www/html`.
@@ -85,7 +85,7 @@ The `wordpress/` directory is bind-mounted into the container at `/var/www/html`
 | `CONTENT_DIR` | hardcoded `/app` | Custom content directory |
 | `GRAPHQL_JWT_AUTH_SECRET_KEY` | `.env` | JWT signing secret |
 | `WP_REDIS_HOST` | `.env` / `redis` | Redis hostname |
-| `WP_DEFAULT_THEME` | hardcoded | `missio-headless` |
+| `WP_DEFAULT_THEME` | hardcoded | `{project}-headless` |
 
 ## Domain Layer (DDD)
 
@@ -94,8 +94,8 @@ The project uses Domain-Driven Design for core business logic. Domain classes ar
 ### Directory Structure
 
 ```
-web/app/mu-plugins/missio-domain/
-├── missio-domain.php              # mu-plugin loader (autoloader registration)
+web/app/mu-plugins/{project}-domain/
+├── {project}-domain.php              # mu-plugin loader (autoloader registration)
 ├── src/
 │   ├── Catalog/
 │   │   ├── Product.php            # Aggregate Root
@@ -119,12 +119,12 @@ web/app/mu-plugins/missio-domain/
 
 ### Namespace Convention
 
-`Missio\Domain\{BoundedContext}` — e.g., `Missio\Domain\Catalog`, `Missio\Domain\Order`, `Missio\Domain\Shared`.
+`App\Domain\{BoundedContext}` — e.g., `App\Domain\Catalog`, `App\Domain\Order`, `App\Domain\Shared`.
 
 ### Architecture Layers
 
 ```
-Domain Layer (missio-domain/)        ← Pure PHP, no WP/WC dependencies
+Domain Layer ({project}-domain/)        ← Pure PHP, no WP/WC dependencies
     ↑ used by
 Application Layer (mu-plugins)       ← Orchestration, use cases, WP hooks
     ↑ used by

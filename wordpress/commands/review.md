@@ -14,7 +14,7 @@ Perform a code review of PHP files in the WordPress headless backend.
 
 2. **Read all PHP files in scope** from:
    - `web/app/mu-plugins/`
-   - `web/app/themes/missio-headless/`
+   - `web/app/themes/{project}-headless/`
    - `config/`
 
 3. **Apply review checklist:**

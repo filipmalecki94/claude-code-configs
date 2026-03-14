@@ -3,7 +3,7 @@ description: Model e-commerce domain with DDD — Bounded Contexts, Aggregates, 
 argument: Domain or subdomain to model (e.g. "Catalog", "Order z fulfillment", "Payment z refundami")
 ---
 
-Perform Domain-Driven Design modeling for the missio headless WooCommerce backend.
+Perform Domain-Driven Design modeling for the headless WooCommerce backend.
 
 ## Behavior
 
@@ -23,11 +23,11 @@ Perform Domain-Driven Design modeling for the missio headless WooCommerce backen
    **Tactical DDD:**
    - Aggregate design (root entity, child entities, value objects, invariants)
    - Domain Event definitions
-   - PHP 8.4 class skeletons in `web/app/mu-plugins/missio-domain/src/{Context}/`
+   - PHP 8.4 class skeletons in `web/app/mu-plugins/{project}-domain/src/{Context}/`
    - Repository interfaces
 
 4. **Class skeletons** follow these conventions:
-   - Namespace: `Missio\Domain\{Context}`
+   - Namespace: `App\Domain\{Context}`
    - Value Objects: `final readonly class`, self-validating
    - Entities: typed properties, domain event recording
    - Repository interfaces only (implementations delegated to `wp-api-developer`)

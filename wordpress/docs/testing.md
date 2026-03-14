@@ -10,19 +10,19 @@
 
 ```bash
 # Run full test suite
-cd /home/fifi/Documents/Projects/missio/missio-docker && \
+cd {DOCKER_DIR} && \
   docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit"
 
 # Run single test file
-cd /home/fifi/Documents/Projects/missio/missio-docker && \
+cd {DOCKER_DIR} && \
   docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit tests/Unit/MuPlugin/GraphqlExtensionsTest.php"
 
 # Run with filter (specific test method)
-cd /home/fifi/Documents/Projects/missio/missio-docker && \
+cd {DOCKER_DIR} && \
   docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit --filter testCustomFieldRegistration"
 
 # Run with coverage
-cd /home/fifi/Documents/Projects/missio/missio-docker && \
+cd {DOCKER_DIR} && \
   docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit --coverage-text"
 ```
 
@@ -36,7 +36,7 @@ wordpress/
         ├── MuPlugin/
         │   ├── GraphqlExtensionsTest.php
         │   ├── WcStoreApiFiltersTest.php
-        │   └── MissioHelpersTest.php
+        │   └── AppHelpersTest.php
         ├── Theme/
         │   └── FunctionsTest.php
         └── bootstrap.php
@@ -92,7 +92,7 @@ class GraphqlExtensionsTest extends TestCase
             ->andReturnUsing(fn($v) => strip_tags($v));
 
         // Test the resolver function directly
-        $result = missio_resolve_custom_field(42);
+        $result = app_resolve_custom_field(42);
         $this->assertStringNotContainsString('<script>', $result);
     }
 }
@@ -100,7 +100,7 @@ class GraphqlExtensionsTest extends TestCase
 
 ## Domain Layer Tests (Pure PHPUnit — No Brain Monkey)
 
-Domain classes (`Missio\Domain\*`) are framework-agnostic PHP. They do NOT need Brain Monkey or WordPress function mocking.
+Domain classes (`App\Domain\*`) are framework-agnostic PHP. They do NOT need Brain Monkey or WordPress function mocking.
 
 ### Directory
 
@@ -127,7 +127,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Catalog;
 
 use PHPUnit\Framework\TestCase;
-use Missio\Domain\Catalog\Price;
+use App\Domain\Catalog\Price;
 
 class PriceTest extends TestCase
 {

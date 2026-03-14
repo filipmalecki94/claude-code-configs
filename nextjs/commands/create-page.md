@@ -83,7 +83,7 @@ export default function Error({
 6. **Route groups** — jeśli ścieżka zaczyna się od `(shop)`, `(auth)` itp., to jest route group i nie wpływa na URL
 7. **Metadata** — jeśli strona ma publiczny tytuł, dodaj eksport `metadata` lub `generateMetadata`:
    ```tsx
-   export const metadata = { title: 'Tytuł strony — Missio' };
+   export const metadata = { title: 'Tytuł strony — App' };
    ```
 8. **Nie nadpisuj** istniejących plików — sprawdź czy strona już istnieje przed utworzeniem
 

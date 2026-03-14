@@ -15,13 +15,13 @@ Run PHPUnit tests for the WordPress headless backend.
 
 ```bash
 # Full suite
-cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit"
+cd {DOCKER_DIR} && docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit"
 
 # Single file (replace path)
-cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit $ARGUMENTS"
+cd {DOCKER_DIR} && docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit $ARGUMENTS"
 
 # With coverage
-cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit --coverage-text"
+cd {DOCKER_DIR} && docker compose run --rm wpcli bash -c "cd /var/www/html && php vendor/bin/phpunit --coverage-text"
 ```
 
 ## Behavior

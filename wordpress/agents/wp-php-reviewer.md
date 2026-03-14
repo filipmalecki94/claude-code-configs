@@ -21,7 +21,7 @@ If you find CRITICAL security issues, suggest running `/security-audit` for a de
 
 - WordPress Bedrock structure, PHP 8.4, PSR-12 coding standard
 - Headless architecture — WordPress serves 4 API layers (WPGraphQL, WC Store API v3, WP REST API, WC REST API), zero frontend rendering in WP
-- Custom code locations: `web/app/mu-plugins/`, `web/app/themes/missio-headless/`
+- Custom code locations: `web/app/mu-plugins/`, `web/app/themes/{project}-headless/`
 - Plugin stack: WooCommerce ^10.6, WPGraphQL ^2.6, WPGraphQL for WooCommerce ^0.21
 - Configuration: `config/application.php`, `config/environments/`
 - Redis object cache is active — consider cache interactions

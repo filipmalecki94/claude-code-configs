@@ -11,17 +11,17 @@ Run the following checks in sequence:
 
 1. **Validate composer.json:**
    ```bash
-   cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wordpress composer validate
+   cd {DOCKER_DIR} && docker compose run --rm wordpress composer validate
    ```
 
 2. **Security audit:**
    ```bash
-   cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wordpress composer audit
+   cd {DOCKER_DIR} && docker compose run --rm wordpress composer audit
    ```
 
 3. **Check outdated packages:**
    ```bash
-   cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wordpress composer outdated --direct
+   cd {DOCKER_DIR} && docker compose run --rm wordpress composer outdated --direct
    ```
 
 4. **WPGraphQL compatibility check:**
@@ -41,6 +41,6 @@ Run the following checks in sequence:
 
 6. **If `$ARGUMENTS` contains `--update`:**
    ```bash
-   cd /home/fifi/Documents/Projects/missio/missio-docker && docker compose run --rm wordpress composer update
+   cd {DOCKER_DIR} && docker compose run --rm wordpress composer update
    ```
    Then re-run validation and audit to confirm no issues.
