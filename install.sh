@@ -108,8 +108,15 @@ install_global() {
   # Copy hook scripts
   mkdir -p "$dst/hooks"
   cp -r "$src/hooks/." "$dst/hooks/"
-  chmod +x "$dst/hooks/"*.sh
+  find "$dst/hooks" -name '*.sh' -exec chmod +x {} +
   echo "  hooks → $dst/hooks/"
+
+  # Copy global commands
+  if [[ -d "$src/commands" ]]; then
+    mkdir -p "$dst/commands"
+    cp -r "$src/commands/." "$dst/commands/"
+    echo "  commands → $dst/commands/"
+  fi
 
   # Merge settings.json using jq if available, otherwise show manual instructions
   local global_settings="$src/settings.json"
