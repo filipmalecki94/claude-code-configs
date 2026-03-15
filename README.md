@@ -17,13 +17,27 @@ Reusable Claude Code configurations — hooks, slash commands, and agents — fo
 ## Quick start
 
 ```bash
-git clone git@github.com:filipmalecki94/claude-code-configs.git
+git clone git@github.com:<your-username>/claude-code-configs.git
 cd claude-code-configs
+```
 
-# 1. Install global hooks and commands (all projects)
+### Interactive wizard
+
+Run without arguments to get a guided setup:
+
+```bash
+./install.sh
+```
+
+The wizard walks you through: scope (global vs project) → target directory → module selection → confirmation. At the end it prints the equivalent scripted command for reference.
+
+### Scripted (Claude Code / CI)
+
+```bash
+# Global hooks and commands (once per machine)
 ./install.sh --mode global
 
-# 2. Install project-level config
+# Project-level config
 ./install.sh --mode nextjs /path/to/my-project
 ./install.sh --mode node-monorepo /path/to/monorepo
 ./install.sh --mode nextjs --mode docker /path/to/project
