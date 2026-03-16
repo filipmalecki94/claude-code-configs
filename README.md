@@ -62,7 +62,6 @@ Installed to `~/.claude/hooks/` — active for every project.
 | `post-write.sh` | `PostToolUse[Edit\|Write]` | Runs linters after file writes: ESLint (JS/TS), Black (Python), jq validation (JSON), shellcheck (shell) | optional: `npx`, `black`, `jq`, `shellcheck` |
 | `notification.sh` | `Notification` | Desktop notification when Claude is waiting for input | `notify-send` / `osascript` / `powershell.exe` |
 | `prompt-editor.sh` | *(via `/edit` command)* | Intercepts prompts, proposes an improved version, asks for confirmation | `jq` |
-| `statusline.sh` | *(statusLine)* | Shows three plan usage bars below the prompt: 5h session, 7d all models, 7d Sonnet only. Uses unofficial OAuth endpoint, cached 60s. | `jq`, `curl` |
 
 ### Terminal colors
 
@@ -102,7 +101,6 @@ Installed to `~/.claude/commands/` — available as `/command` in every project.
 | File protection | ✓ | ✓ | ✓ | ✓ | – |
 | Secret detection | ✓ | ✓ | ✓ | – | – |
 | Plan companion | ✓ | – | – | – | – |
-| Usage limits statusline | ✓ | – | – | – | – |
 | Post-write linters | ✓ | ✓ | – | ✓ | – |
 | Desktop notifications | ✓ | – | – | – | – |
 | npm publish guard | – | – | ✓ | – | – |
@@ -137,8 +135,7 @@ global/
 │   ├── plan-companion.sh  # PLAN.md → auto-generate PROGRESS.md
 │   ├── post-write.sh      # linters after file writes
 │   ├── notification.sh    # desktop notification on Stop
-│   ├── prompt-editor.sh   # prompt rewriter (via /edit, not auto-wired)
-│   └── statusline.sh      # usage limits: 5h session, 7d all, 7d sonnet
+│   └── prompt-editor.sh   # prompt rewriter (via /edit, not auto-wired)
 └── commands/
     ├── edit.md            # /edit — rewrite + confirm prompt
     ├── no-edit.md         # /no-edit — disable prompt editor
